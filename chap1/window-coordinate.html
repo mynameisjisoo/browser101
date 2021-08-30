@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate</title>
+</head>
+<style>
+    body{
+        background-color: black;
+        /*overflow: hidden; 컨텐츠가 문서를 벗어나게되면 hidden처리 (스크롤안되게)*/
+    }
+
+    .box{
+        padding:10px;
+        margin-bottom: 20px;
+        background-color: darkseagreen;
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+    }
+    #special{
+        background-color:lightcoral;
+    }
+    button{
+        
+    }
+
+</style>
+<body>
+    <input type="button" value="Scroll by 100px(y)">
+    <input type="button" value="Scroll by 100px(x)">
+    <input type="button" value="Scroll into special">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box" id="special"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</body>
+
+<script>
+    const special = document.getElementById("special"); //querySelector로 가져와도 됨
+    
+    special.addEventListener("click",(event)=>{ //항상event에는 event라는 오브젝트가 전달됨
+        console.log(special.getBoundingClientRect());
+        console.log(`clientX: ${event.clientX}, clientY: ${event.clientY}`);
+        console.log(`pageX: ${event.pageX}, pageY: ${event.pageY}`);
+    });
+
+
+</script>
+</html>
