@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll</title>
+    <style>
+      body{
+        background-color: black;
+      }
+      .btn{
+        outline: none;
+        background-color: tomato;
+        cursor: pointer;
+        color: white;
+        font-size: 17px;
+        display: block; 
+        position:absolute;
+        left: 50%;
+      }
+      img{
+        width: 150px;;
+      }
+      .carrot{
+        display: block;
+        position: relative;
+        top:50px;
+        left:50%;
+      }
+      .rabbit{
+        display: block;
+        position: relative;
+        top:50px;
+        left:50%;
+
+      }
+   
+    </style>
+  </head>
+  <body>
+    <button class="btn" >Find a rabbit 🐰</button>
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="rabbit" src="./img/rabbit.png" alt="rabbit"/>
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+    <img class="carrot" src="./img/carrot.png" alt="carrot"/>  
+   
+
+    <script>
+      const btn = document.querySelector('.btn');
+      const rabbit = document.querySelector('.rabbit');
+      
+      btn.addEventListener('click',(event)=>{
+          rabbit.scrollIntoView({behavior:'smooth', block:'center'}); //mdn에서 옵션 더 읽어보기
+          // const y=rabbit.getBoundingClientRect().top;
+          // window.scrollTo(0,y);
+      })
+
+    </script>
+  </body>
+</html>
