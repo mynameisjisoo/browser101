@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate</title>
+</head>
+<style>
+    body{
+        background-color: black;
+        /*overflow: hidden; 컨텐츠가 문서를 벗어나게되면 hidden처리 (스크롤안되게)*/
+    }
+
+    .box{
+        padding:10px;
+        margin-bottom: 20px;
+        background-color: darkseagreen;
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+    }
+    #special{
+        background-color:lightcoral;
+    }
+    input{
+    float: right;
+    position: sticky;
+    top:10px;
+
+    
+    
+    }
+    
+
+</style>
+<body>
+    <!--순수 HTML, CSS, JS 파일들로 프로젝트를 진행하는 경우에는 
+        문서의 구조를 결정하는 마크업들은 HTML에 모든 동적인 코드들은 JS파일에 두는것을 더 선호
+    여기에서 onclick 하기보다는 script에서 eventListeners이용하기!!-->
+    <input type="button" value="Scroll into special" onclick="scrollIntoSpecial()"> 
+    <input type="button" value="Scroll to 100px(y)" onclick="scrollTo100px()">
+    <input type="button" value="Scroll by 100px(y)" onclick="scrollBy100px()">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box" id="special"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+</body>
+
+<script>
+    // const special = document.getElementById("special"); //querySelector로 가져와도 됨
+    const special = document.querySelector("#special"); //querySelector로 가져와도 됨
+    
+    special.addEventListener("click",(event)=>{ //항상event에는 event라는 오브젝트가 전달됨
+        console.log(special.getBoundingClientRect());
+        console.log(`clientX: ${event.clientX}, clientY: ${event.clientY}`);
+        console.log(`pageX: ${event.pageX}, pageY: ${event.pageY}`);
+    });
+    function scrollBy100px(){
+        const location = window.scrollY+100;
+        window.scrollBy(scrollTo({top:location, behavior:"smooth"}));
+        console.log(window.scrollY);
+    }
+
+    
+    function scrollTo100px(){
+        window.scrollTo({top:100, left:0, behavior:"smooth"});
+        console.log(window.scrollY);
+
+    }
+    function scrollIntoSpecial(){
+        const location = special.offsetTop;
+        window.scrollTo({top:location, behavior:"smooth"});
+    }
+
+</script>
+</html>

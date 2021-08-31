@@ -23,15 +23,19 @@
     #special{
         background-color:lightcoral;
     }
-    button{
-        
+    aside{
+    position: fixed;
+    top:20px;
+    right:20px;
+
+    
+    
     }
+    
 
 </style>
 <body>
-    <input type="button" value="Scroll by 100px(y)">
-    <input type="button" value="Scroll by 100px(x)">
-    <input type="button" value="Scroll into special">
+
     <div class="box"></div>
     <div class="box"></div>
     <div class="box"></div>
@@ -46,16 +50,36 @@
     <div class="box"></div>
     <div class="box"></div>
     <div class="box"></div>
+    <aside>
+        <button class="scroll-by">Scroll by 100px(y)</button>
+        <button class="scroll-to">Scroll to 100px(y)</button>
+        <button class="scroll-into">Scroll into special</button>
+    </aside>
 </body>
 
 <script>
-    const special = document.getElementById("special"); //querySelector로 가져와도 됨
+    // const special = document.getElementById("special"); //querySelector로 가져와도 됨
+    const special = document.querySelector("#special"); //querySelector로 가져와도 됨
     
     special.addEventListener("click",(event)=>{ //항상event에는 event라는 오브젝트가 전달됨
         console.log(special.getBoundingClientRect());
         console.log(`clientX: ${event.clientX}, clientY: ${event.clientY}`);
         console.log(`pageX: ${event.pageX}, pageY: ${event.pageY}`);
     });
+    const scrollby = document.querySelector('.scroll-by');
+    const scrollto = document.querySelector('.scroll-to');
+    const scrollinto = document.querySelector('.scroll-into');
+
+    scrollto.addEventListener("click",(event)=>{
+        window.scrollto(0,100);
+    } )
+    scrollBy.addEventListener("click",(event)=>{
+      //  window.scrollby({top:100, left:0, behavior:"smooth"}); 이렇게 오브젝트를 전달해도 됨
+        window.scrollBy(0,100);
+    } )
+    scrollinto.addEventListener("click",(event)=>{
+        special.scrollIntoView();
+    } )
 
 
 </script>

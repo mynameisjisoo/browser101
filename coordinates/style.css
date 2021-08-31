@@ -1,0 +1,31 @@
+body {
+  background: black;
+  color: white;
+  font-size: 30px;
+}
+.target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /*img의 중심으로 이동*/
+}
+.coordination {
+  /* background: violet; */
+  position: absolute;
+  left: 20px;
+  transform: translate(20px, 20px);
+}
+.line {
+  background-color: white;
+  position: absolute;
+}
+.vertical {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+}
+.horizontal {
+  width: 100%;
+  height: 1px;
+  top: 50%;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="test.js" defer></script> 
+    <!--html이 다 파싱(분석)완료 되고 defer먼저 호출됨 -> 그 다음 domContentload ->리소스 다운 완료되면 load
+    그래서 js파일이 이미지나 폰트에 대해서 뭔가를 수행하지 않는 이상 DOMContentLoaded 안에서 동작 수행하는 것이 좀 더 빠르다
+    defer옵션과 DOMContentLoaded가 비슷한 시점에 발생하기때문에 효율적으로 쓸 수 있다-->
+</head>
+<body>
+    <script>
+        //only document  즉 html만 다 완료되면 호출
+        window.addEventListener('DOMContentLoaded',()=>{
+            console.log('DOMContentLoaded')
+        })
+        //after resourde (css, images) 모든 것들이 다 다운로드된 후 호출
+        window.addEventListener('load',()=>{
+            console.log('load');
+        })
+
+        //before unload ()
+        window.addEventListener('beforeunload',()=>{
+            console.log('beforeunload');
+        })
+        //resource is being unloaded
+        window.addEventListener('unload',()=>{
+            console.log('unload');
+        })
+    </script>
+</body>
+</html>
