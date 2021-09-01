@@ -1,0 +1,30 @@
+body {
+  height: 100%;
+}
+div {
+  position: absolute;
+  left: 35%;
+  margin-top: 50px;
+  background: cornsilk;
+  width: 500px;
+  height: 600px;
+  border-radius: 5em;
+  text-align: center;
+}
+
+#text {
+  position: relative;
+  width: 70%;
+  height: 40px;
+  top: 87%;
+}
+#shoppingCart {
+  position: relative;
+  top: 89%;
+  left: 10px;
+  cursor: pointer;
+}
+ul {
+  position: relative;
+  margin: 10px;
+}
