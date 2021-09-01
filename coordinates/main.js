@@ -7,8 +7,9 @@ window.addEventListener('mousemove', event => {
   const x = event.clientX;
   const y = event.clientY;
 
-  target.style.left = x + 'px'; // 마우스 따라서 좌표 바뀌게
-  target.style.top = y + 'px';
+  // target.style.left = x + 'px'; // 마우스 따라서 좌표 바뀌게
+  // target.style.top = y + 'px';
+  target.style.transform = translte(x + 'px', y + 'px');
   coordination.style.left = x + 'px'; // 마우스 따라서 좌표 바뀌게
   coordination.style.top = y + 'px';
   vertical.style.left = x + 'px'; // 마우스 따라서 좌표 바뀌게
