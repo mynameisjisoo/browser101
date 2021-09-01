@@ -13,18 +13,10 @@ window.addEventListener('mousemove', event => {
 
   vertical.style.transform = `translateX(${x}px)`;
   horizental.style.transform = `translateY(${y}px)`;
+  tag.style.transform = `translate(${x}px, ${y}px)`;
   target.style.transform = `translate(${x - targetHalfwidth}px,${
     y - targetHalfheight
   }px)`; // target의 중심을 당겨오기
-  tag.style.transform = `translate(${x}px,${y}px)`;
 
-  /*성능 개선하기 전의 코드들
-  vertical.style.left = `${x}px`;
-  horizental.style.top = `${y}px`;
-  target.style.top = `${y}px`;
-  target.style.left = `${x}px`;
-  tag.style.top = `${y}px`;
-  tag.style.left = `${x}px`;
-  tag.innerHTML = `${x}px, ${y}px`; 
-  */
+  tag.innerHTML = `${x}px,${y}px`;
 });
