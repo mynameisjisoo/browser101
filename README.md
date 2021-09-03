@@ -12,3 +12,12 @@ This repository is a compilation of what I have learned in class.
 * coordinate: WebAPIs practice (When the mouse moves, the coordinates of the mouse location are displayed on the screen)
 * rabbits : WebAPIs practice (Find a rabbit hiding among the carrots When the button is clicked)
 * dom-code : Manipulating the DOM elements
+
+
+coordinate
+![image](https://user-images.githubusercontent.com/84840032/132032975-e05fc563-cee8-4430-bb09-a658ff32bca0.png)
+
+rabbits
+![image](https://user-images.githubusercontent.com/84840032/132032704-30bbabf2-a70d-448b-96bc-f247ed2c0df3.png)
+![image](https://user-images.githubusercontent.com/84840032/132032763-b9217aee-618d-410f-aa47-52bc64cb90a0.png)
+
