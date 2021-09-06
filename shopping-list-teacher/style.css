@@ -28,7 +28,7 @@ body {
 }
 
 .header {
-  height: 48px;
+  height: 50px;
   padding: 8px;
   font-size: 24px;
   font-weight: bold;
@@ -55,17 +55,17 @@ body {
   padding: 8px 32px;
 }
 
-.item_delete {
+.item__delete {
   font-size: 16px;
   transition: all 300ms ease-in; /*css속성 변경할 때 에니메이션 속도 조절*/
 }
 
-.item_delete:hover {
+.item__delete:hover {
   color: red;
   transform: scale(1.1); /*조금 커지게*/
 }
 
-.item_divider {
+.item__divider {
   width: 90%;
   height: 1px;
   background-color: thistle;

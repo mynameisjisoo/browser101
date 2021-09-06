@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 500px;
+        height: 500px;
+        background-color: yellow;
+      }
+
+      .middle {
+        width: 50%;
+        height: 50%;
+        margin: auto;
+        background-color: thistle;
+        transform: translateY(50%);
+      }
+
+      button {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="middle">
+        <button>Click Me</button>
+      </div>
+    </div>
+    <script>
+      const outer = document.querySelector('.outer');
+      const middle = document.querySelector('.middle');
+      const button = document.querySelector('button');
+
+      outer.addEventListener('click', event=>{
+        console.log(`outer: ${event.currentTarget}, ${event.target}`);
+      })
+      middle.addEventListener('click', event=>{
+        console.log(`middle: ${event.currentTarget}, ${event.target}`);
+      })
+      button.addEventListener('click', event=>{
+        console.log(`button1: ${event.currentTarget}, ${event.target}`);
+        // event.stopPropagation(); //상위 요소로 일어나는 버블링은 막아주지만 다른 핸들러가 동작하는 것 (button2)는 막지못함
+        //  event.stopImmediatePropagation(); // 버블링을 멈추고 다른 핸들러 동작 모두 막음 (요소에 할당된 특정 이벤트를 처리하는 핸들러가 모두 동작 안함) 
+        /* 아주 중요한 포인트!!! stopPropagation, stopImmediatePropagation를 쓰는 것은 매우 좋지 않음!!!가능한 쓰지 않고 아래 코드 처럼 처리한다 */
+      })
+      button.addEventListener('click', event=>{
+        console.log(`button2: ${event.currentTarget}, ${event.target}`);
+        /* event.stopImmediatePropagation(); 이걸 여기에서 쓰면 이벤트가 발생한 순서가 button1이 먼저 등록되었기 때문에
+        이벤트는 button1에 먼저 갔다가 2로 오기때문에 이전에 발생한 것은 적용 안됨 */
+        
+      })
+
+      /*stopPropagation쓰지 않고 버블링 처리하는 법*/
+
+     /* outer.addEventListener('click', event => {
+        if (event.target !== event.currentTarget) {
+          return;
+        }
+        console.log(`outer: ${event.currentTarget}, ${event.target}`);
+      });
+      middle.addEventListener('click', event => {
+        if (event.target !== event.currentTarget) {
+          return;
+        }
+        console.log(`middle ${event.currentTarget}, ${event.target}`);
+      });
+      button.addEventListener('click', event => {
+        console.log(`button1 ${event.currentTarget}, ${event.target}`);
+      });
+      button.addEventListener('click', event => {
+        console.log(`button2 ${event.currentTarget}, ${event.target}`);
+      }); */
+    </script>
+  </body>
+</html>

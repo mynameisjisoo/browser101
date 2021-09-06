@@ -21,34 +21,44 @@ function onAdd() {
   input.value = '';
   input.focus();
 }
-
+let id = 0; //UUID 쓰는게 좋지만
 function createItem(text) {
   const itemRow = document.createElement('li');
-  itemRow.setAttribute('class', 'item_row');
+  itemRow.setAttribute('class', 'item__row');
+  itemRow.setAttribute('data-id', id);
+  itemRow.innerHTML = `
+                <div class="item">
+                  <span class="item__name">${text}</span>
+                  <button class="item__delelte">
+                        <i class="far fa-trash-alt"  data-id=${id}></i>
+                  </button>
+                </div>
+                <div class="item__divider"></div>`;
+  id++;
+  // const item = document.createElement('div');
+  // item.setAttribute('class', 'item');
 
-  const item = document.createElement('div');
-  item.setAttribute('class', 'item');
+  // const name = document.createElement('span');
+  // name.setAttribute('class', 'item_name');
+  // name.innerText = text;
 
-  const name = document.createElement('span');
-  name.setAttribute('class', 'item_name');
-  name.innerText = text;
+  // const deleteBtn = document.createElement('button');
+  // deleteBtn.setAttribute('class', 'item_delete');
+  // deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>'; // 변경 할 일이 없어서
 
-  const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('class', 'item_delete');
-  deleteBtn.innerHTML = '<i class="far fa-trash-alt"></i>'; // 변경 할 일이 없어서
+  // deleteBtn.addEventListener('click', () => {
+  //   // items.removeChild(itemRow);
+  //   itemRow.remove();
+  // });
 
-  deleteBtn.addEventListener('click', () => {
-    items.removeChild(itemRow);
-  });
+  // const itemDiver = document.createElement('div');
+  // itemDiver.setAttribute('class', 'item_divider');
 
-  const itemDiver = document.createElement('div');
-  itemDiver.setAttribute('class', 'item_divider');
+  // item.appendChild(name);
+  // item.appendChild(deleteBtn);
 
-  item.appendChild(name);
-  item.appendChild(deleteBtn);
-
-  itemRow.appendChild(item);
-  itemRow.appendChild(itemDiver);
+  // itemRow.appendChild(item);
+  // itemRow.appendChild(itemDiver);
   return itemRow;
 }
 
@@ -56,8 +66,20 @@ addBtn.addEventListener('click', () => {
   onAdd();
 });
 
-input.addEventListener('keypress', event => {
+input.addEventListener('keydown', event => {
+  if (event.isComposing) {
+    return; // 한글입력시 버그 개선 : 글자가 만들어지고 있는 중간에 만들어진 이벤트는 무시하고 넘어감
+  } //그냥 keyup으로 구현해도 됨
   if (event.key === 'Enter') {
     onAdd();
+  }
+});
+
+items.addEventListener('click', event => {
+  const id = event.target.dataset.id;
+  if (id) {
+    //id 가 있으면?
+    const toBeDelete = document.querySelector(`.item__row[data-id="${id}"]`);
+    toBeDelete.remove();
   }
 });

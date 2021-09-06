@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .outer, .middle, .inner{
+        padding:10px;
+        border: solid 2px;
+    }
+    
+    .outer{
+        height: 200px;
+        width: 200px;
+    }
+    
+    .middle{
+        display: block;
+        height: 150px;
+        width: 150px;
+    }
+    
+    .inner{
+        height: 50px;
+        width: 100px;
+    }
+
+</style>
+<body>
+    <div class="outer" onclick="console.log(`outer - event.target: ${event.target}, event.currentTarget:${event.currentTarget}`)"> outer
+        <span class="middle" onclick="console.log(`middle - event.target: ${event.target}, event.currentTarget:${event.currentTarget}`)"> middle
+            <button class="inner 01"onclick="console.log(`inner - event.target: ${event.target}, event.currentTarget:${event.currentTarget}`)"> inner01</button>
+            <button class="inner 02"onclick="console.log(`inner - event.target: ${event.target}, event.currentTarget:${event.currentTarget}`)"> inner02</button>
+        </span>
+    </div>
+</body>
+</html>
