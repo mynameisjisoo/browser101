@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 250px;
+        height: 250px;
+        background-color: yellow;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="checkbox" />
+    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+      document.addEventListener('wheel', event => {
+        console.log('scrolling');
+        event.preventDefault(); /*스크롤링에 관련된것들이나 빠르게 이벤트가 동작해야 하는 것들은 
+        브라우저가 먼저 동작하기때문에 이벤트를 들을 수만 있고 브라우저 기본값을 취소할 수는 없음 --error 발생
+        이벤트 리스너는 기본적으로 passive(수동적으로) 등록됨 ->브라우저 기본값을 꼭 취소하고싶다면 passive-false로 하면 됨
+        하지만!! 왠만해서 passive가 true로 설정된것들은 event.preventDefault를 호출하지 않는 것이 좋음*/
+      
+        
+      },{passive:false}); 
+  
+    
+      const checkbox = document.querySelector('input');
+      checkbox.addEventListener('click', event => {
+        /* 무언가 오래걸리는 일을 하면 */
+        console.log('checked');
+        event.preventDefault(); /* 브라우저는 우리가 다 처리할 때 까지 기다렸다가 체크박스를 표시함. 그래서 event.preventDefault()를 하면
+        브라우저에서 발생하는 기본적인 행동 취소됨 (체크박스에 체크 안됨) */
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .selected {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+    </ul>
+    <script>
+      // Bad (모든 요소를 찾아서 일일이 이벤트를 등록하는 것은 좋지않음)
+      // const lis = document.querySelectorAll('li');
+      // lis.forEach(li => {
+      //   li.addEventListener('click', () => {
+      //     li.classList.add('selected');
+      //   });
+      // });
+
+      /*부모 안에 있는 자식들에게 공통적으로 무언가 처리 해야 될 때 자식노드에 일일히 이벤트리스너를 추가하는 것보다
+        그냥 부모에 이벤트 리스너를 등록하고 원하는 target에만 처리를 해주는게 좋다 (이벤트 위임)*/
+      // Coooooooool 🙌
+      const ul = document.querySelector('ul'); 
+      ul.addEventListener('click', event => {
+        if (event.target.tagName == 'LI') { 
+          event.target.classList.add('selected');
+        }
+      });
+
+    </script>
+  </body>
+</html>
