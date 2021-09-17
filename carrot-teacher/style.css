@@ -104,10 +104,12 @@ body {
   display: block;
   font-size: 24px;
 }
+
 .carrot,
 .bug {
   transition: transform 100ms ease-in;
 }
+
 .carrot:hover,
 .bug:hover {
   transform: scale(1.1);
