@@ -28,7 +28,7 @@ export default class PopUp {
     this.popUp.classList.add('pop-up--hide');
   }
 }
-
+/*
 function printMessage(text) {
   let message = text;
   if (text == null || text == undefined) {
@@ -36,7 +36,8 @@ function printMessage(text) {
   }
   console.log(message);
 }
-
+아래와 같이 바꿀 수 있음
+*/
 function printMessage(text) {
   const message = text ?? 'Nothing to display';
   console.log(message);
