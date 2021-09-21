@@ -1,128 +1,37 @@
 'use strict';
 import PopUp from './popup.js'; //index.html에서도 typ을 module이라고 지정해줘야함
-import Field from './field.js';
-import * as sound from './sound.js'; //sound라는 이름으로 전부 다 import
-
-const CARROT_COUNT = 5;
-const BUG_COUNT = 5;
-const GAME_DURATION_SEC = 5;
-
-const gameBtn = document.querySelector('.game__button');
-const gameTimer = document.querySelector('.game__timer');
-const gameScore = document.querySelector('.game__score');
-
-let started = false;
-let score = 0;
-let timer = undefined;
+import { GameBuilder, Reason } from './game.js';
 
 const gameFinishBanner = new PopUp();
+
+const game = new GameBuilder()
+  .withGameDuration(5)
+  .withCarrotCount(3)
+  .withBugCount(3)
+  .build();
+/*builder pattern 이용하면 정확하게 어떤값을 설정하는지 한눈에 보기 좋음
+game클래스에서 builder 패턴을 이용해서 new game 을 만들게 설계->
+game클래스 호출해야 할 곳에서 게임빌더로 생성자 명확하게 입력해서 game 만들기 */
+
+game.setGameStopListener(reason => {
+  //reason을 문자열로 받기때문에 오타 방지 등 위해서 reason obj만들어서 받음
+  let message;
+  switch (reason) {
+    case Reason.cancel:
+      message = 'REPLAY❓';
+      break;
+    case Reason.win:
+      message = 'YOU WON🎉';
+      break;
+    case Reason.lose:
+      message = 'YOU LOST💩';
+      break;
+    default:
+      throw new Error('not valid reason');
+  }
+  gameFinishBanner.showWithText(message);
+});
+
 gameFinishBanner.setClickListener(() => {
-  startGame();
+  game.start();
 });
-
-const gameField = new Field(CARROT_COUNT, BUG_COUNT);
-gameField.setClickListener(onItemClick);
-
-function onItemClick(item) {
-  if (!started) {
-    return;
-  }
-  if (item === 'carrot') {
-    score++;
-    updateScoreBoard();
-    if (score === CARROT_COUNT) {
-      finishGame(true);
-    }
-  } else if (item === 'bug') {
-    finishGame(false);
-  }
-}
-
-gameBtn.addEventListener('click', () => {
-  if (started) {
-    stopGame();
-  } else {
-    startGame();
-  }
-});
-
-function startGame() {
-  started = true;
-  initGame();
-  showStopButton();
-  showTimerAndScore();
-  startGameTimer();
-  sound.playBackground();
-}
-
-function stopGame() {
-  started = false;
-  stopGameTinmer();
-  hideGameButton();
-  gameFinishBanner.showWithText('REPLAY❓');
-  sound.playAlert();
-  sound.stopBackground();
-}
-
-function finishGame(win) {
-  started = false;
-  hideGameButton();
-  if (win) {
-    sound.playWin();
-  } else {
-    sound.playBug();
-  }
-  stopGameTinmer();
-  sound.stopBackground();
-  gameFinishBanner.showWithText(win ? 'YOU WON🎉' : 'YOU LOST ☠');
-}
-
-function showStopButton() {
-  const icon = gameBtn.querySelector('.fas');
-  icon.classList.add('fa-stop');
-  icon.classList.remove('fa-play');
-  gameBtn.style.visibility = 'visible';
-}
-
-function hideGameButton() {
-  gameBtn.style.visibility = 'hidden';
-}
-
-function showTimerAndScore() {
-  gameTimer.style.visibility = 'visible';
-  gameScore.style.visibility = 'visible';
-}
-
-function startGameTimer() {
-  let remainingTimeSec = GAME_DURATION_SEC;
-  updateTimerText(remainingTimeSec);
-  timer = setInterval(() => {
-    if (remainingTimeSec <= 0) {
-      clearInterval(timer);
-      finishGame(CARROT_COUNT === score);
-      return;
-    }
-    updateTimerText(--remainingTimeSec);
-  }, 1000);
-}
-
-function stopGameTinmer() {
-  clearInterval(timer);
-}
-
-function updateTimerText(time) {
-  const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
-  gameTimer.innerText = `${minutes}:${seconds}`;
-}
-
-function initGame() {
-  score = 0;
-  gameScore.innerText = CARROT_COUNT;
-  //벌레와 당근을 생성한 뒤 field에 추가해줌
-  gameField.init();
-}
-
-function updateScoreBoard() {
-  gameScore.innerText = CARROT_COUNT - score;
-}
