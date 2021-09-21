@@ -73,7 +73,7 @@ function finishGame(win) {
     sound.playBug();
   }
   stopGameTinmer();
-  stopSound(bgSound);
+  sound.stopBackground();
   gameFinishBanner.showWithText(win ? 'YOU WON🎉' : 'YOU LOST ☠');
 }
 

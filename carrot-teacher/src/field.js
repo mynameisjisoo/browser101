@@ -8,7 +8,19 @@ export default class Field {
     this.bugCount = bugCount;
     this.field = document.querySelector('.game__field');
     this.fieldRect = this.field.getBoundingClientRect();
-    this.field.addEventListener('click', this.onClick);
+
+    this.field.addEventListener('click', this.onClick); //방법1. this그대로 넘기고 onclick함수를 멤버변수로 고치기
+
+    /*함수를 인자로 전달할 때 클래스 정보는 전달 안됨(this.onclick에 포함된 클래스 무시됨)
+    onclick은 field클래스의 멤버 함수라 this.onclick하면 이 클래스 정보 같이 전달될 것 같지만
+    클래스 무시된 상태로 함수만 전달됨(무시하고싶지않을 때는 함수와 클래스 정보를 바인딩해줘야함)
+    
+    방법2. bind 이용해서 this바인딩하기
+    this.onClick = this.onClick.bind(this); <- 이렇게 해도 되나 보통은 arrow function을 씀
+    
+    방법3. arrow Function 이용하는 방법 (arrowfunction은 this가 유지됨)
+    this.field.addEventListener('click', (event)=>this.onClick(event)); 
+    */
   }
   init() {
     this.field.innerHTML = '';
@@ -43,7 +55,8 @@ export default class Field {
     }
   }
 
-  onClick(event) {
+  //this 바인딩을 위해서 onClick이라는 멤버변수로 만들고 멤버변수는 arrow function을 가리키게 함
+  onClick = event => {
     const target = event.target;
     if (target.matches('.carrot')) {
       target.remove();
@@ -52,7 +65,7 @@ export default class Field {
     } else if (target.matches('.bug')) {
       this.onItemClick && this.onItemClick('bug');
     }
-  }
+  };
 }
 
 //클래스와 상관없는 함수 (오브젝트를 생성하는것과 관계없는 함수?)는 클래스 밖에 만들는게 효율적
