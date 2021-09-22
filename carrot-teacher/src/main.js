@@ -1,6 +1,7 @@
 'use strict';
 import PopUp from './popup.js'; //index.html에서도 typ을 module이라고 지정해줘야함
 import { GameBuilder, Reason } from './game.js';
+import * as sound from './sound.js';
 
 const gameFinishBanner = new PopUp();
 
@@ -19,12 +20,17 @@ game.setGameStopListener(reason => {
   switch (reason) {
     case Reason.cancel:
       message = 'REPLAY❓';
+      sound.playAlert();
+
       break;
     case Reason.win:
       message = 'YOU WON🎉';
+      sound.playWin();
+
       break;
     case Reason.lose:
       message = 'YOU LOST💩';
+      sound.playBug();
       break;
     default:
       throw new Error('not valid reason');

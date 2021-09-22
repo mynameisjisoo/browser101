@@ -1,9 +1,9 @@
 'use strict';
-import Field from './field.js';
+import { Field, ItemType } from './field.js';
 import * as sound from './sound.js';
 
 /*자바스크립트로 타입 보장 하는 방법
- ex) reason에 정해진 글자만 입력하도록??
+ ex) reason에 정해진 글자만 입력하도록?
 */
 export const Reason = Object.freeze({
   win: 'win',
@@ -52,7 +52,7 @@ class Game {
     this.gameBtn = document.querySelector('.game__button');
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
-        this.stop();
+        this.stop(Reason.cancel);
       } else {
         this.start();
       }
@@ -78,40 +78,26 @@ class Game {
     sound.playBackground();
   }
 
-  stop() {
+  stop(reason) {
     this.started = false;
     this.stopGameTinmer();
     this.hideGameButton();
-    sound.playAlert();
     sound.stopBackground();
-    this.onGameStop && this.onGameStop(Reason.cancel);
-  }
-
-  finish(win) {
-    this.started = false;
-    this.hideGameButton();
-    if (win) {
-      sound.playWin();
-    } else {
-      sound.playBug();
-    }
-    this.stopGameTinmer();
-    sound.stopBackground();
-    this.onGameStop && this.onGameStop(win ? Reason.win : Reason.lose);
+    this.onGameStop && this.onGameStop(reason);
   }
 
   onItemClick = item => {
     if (!this.started) {
       return;
     }
-    if (item === 'carrot') {
+    if (item === ItemType.carrot) {
       this.score++;
       this.updateScoreBoard();
       if (this.score === this.carrotCount) {
-        this.finish(true);
+        this.stop(Reason.win);
       }
-    } else if (item === 'bug') {
-      this.finish(false);
+    } else if (ItemType.bug) {
+      this.stop(Reason.lose);
     }
   };
   showStopButton() {
@@ -136,7 +122,7 @@ class Game {
     this.timer = setInterval(() => {
       if (remainingTimeSec <= 0) {
         clearInterval(this.timer);
-        this.finish(this.carrotCount === this.score);
+        this.stop(this.carrotCount === this.score ? Reason.win : Reason.lose);
         return;
       }
       this.updateTimerText(--remainingTimeSec);
