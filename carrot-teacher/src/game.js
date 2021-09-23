@@ -80,7 +80,7 @@ class Game {
 
   stop(reason) {
     this.started = false;
-    this.stopGameTinmer();
+    this.stopGameTimer();
     this.hideGameButton();
     sound.stopBackground();
     this.onGameStop && this.onGameStop(reason);
@@ -100,6 +100,7 @@ class Game {
       this.stop(Reason.lose);
     }
   };
+
   showStopButton() {
     const icon = this.gameBtn.querySelector('.fas');
     icon.classList.add('fa-stop');
@@ -129,7 +130,7 @@ class Game {
     }, 1000);
   }
 
-  stopGameTinmer() {
+  stopGameTimer() {
     clearInterval(this.timer);
   }
 
