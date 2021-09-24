@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    button{
+        font-size: 38px;
+    }
+    button:hover {
+        background-color: antiquewhite;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <button>Continue with promise</button>
+    <script>
+        function handleClick(){
+            console.log('handleClick');
+            Promise.resolve(0)//
+            .then(()=>{
+                console.log('then');
+                handleClick();
+            })
+        }
+        const button = document.querySelector('button');
+        button.addEventListener('click',()=>{
+            handleClick();
+        })
+    </script>
+    <!--Promise의 콜백은 Mircotask queue를 이용함-->
+    <!-- 클릭리스너에 등록된 콜백(handleClick)을 웹 APIs가 Task queue로 보내고
+        => Task queue에 있는 콜백은 call stack으로 옮겨짐 => call stack에서 handleClick 수행됨
+        거기에서 promise를 만들고 promise then도 등록됨. promise then은 promise가 완료되면 Mircotask queue에 들어감
+        => 이벤트 루프가 순회를 하다가 Microtask queue에 있는 콜백(then)을 call stack으로 보내고 Microtask queue에 머물러 있는데 
+        또 다른 then 콜백함수가 들어오고 then 안에서 또다른 then 호출, 무한 반복하면 event loop는 microtask queue를 떠날 수 없어서 
+        브라우저가 반응을 하지 않는다!
+    -->
+</body>
+</html>
