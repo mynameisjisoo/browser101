@@ -78,8 +78,3 @@ export class Field {
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min; //min~max범위까지에서 랜덤한 숫자(max는 포함안됨)
 }
-
-function playSound(sound) {
-  sound.currentTime = 0;
-  sound.play();
-}
